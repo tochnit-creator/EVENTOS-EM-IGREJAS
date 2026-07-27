@@ -108,6 +108,16 @@ b, strong { color:#fff; font-weight:700; }
 .num .l { font-size:12.5px; font-weight:700; margin-top:8px; }
 .num .d { font-size:11.5px; color:var(--muted); margin-top:5px; line-height:1.5; }
 
+/* video */
+.vidlb { font-size:9.5px; letter-spacing:.24em; text-transform:uppercase; color:var(--gold); font-weight:700; margin-top:34px; }
+.vids { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin-top:12px; }
+.vid { position:relative; padding-top:56.25%; border-radius:14px; overflow:hidden; border:1px solid var(--hair); background:var(--surface); }
+.vid iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+.stars { display:flex; flex-wrap:wrap; align-items:center; gap:14px; margin-top:22px; }
+.stars .s { color:var(--gold); font-size:22px; letter-spacing:3px; }
+.stars .t { font-size:13.5px; color:#C4CAD1; }
+.acts2 { display:flex; flex-wrap:wrap; gap:12px; margin-top:4px; }
+
 /* painel de pesquisa */
 .ev { border:1px solid rgba(255,196,46,.45); border-radius:16px; background:rgba(255,196,46,.05); padding:32px 28px; margin-top:34px; }
 .ev h3 { font-family:'Bebas Neue',sans-serif; font-size:clamp(26px,4vw,34px); line-height:1.02; margin-top:8px; }
@@ -204,6 +214,7 @@ footer span { font-size:9.5px; letter-spacing:.18em; text-transform:uppercase; c
   .split, .grid, .next { grid-template-columns:1fr; }
   .crew { grid-template-columns:repeat(2,1fr); }
   .nums { grid-template-columns:repeat(2,1fr); }
+  .vids { grid-template-columns:1fr; }
 
   .hero-top img { width:110px; }
   .slot { flex-direction:column; gap:6px; }
@@ -352,11 +363,21 @@ footer span { font-size:9.5px; letter-spacing:.18em; text-transform:uppercase; c
       <div class="rv"><div class="n">1</div><div class="l">Operador de som</div><div class="d">Captação de áudio junto com a equipe da casa</div></div>
       <div class="rv"><div class="n">2</div><div class="l">Suporte</div><div class="d">Apoio de produção, cabos e organização dos artistas</div></div>
     </div>
+    <div class="vidlb rv" id="vidlb">Um trabalho recente do estúdio</div>
+    <div class="vids rv" id="vids"></div>
+
     <div class="note rv">
       <div class="eyebrow">Veja o trabalho antes de decidir</div>
-      <p>Os clipes, as captações ao vivo e o material que entregamos aos artistas estão todos no nosso
-      Instagram. Vale a pena a liderança dar uma olhada antes da nossa conversa.</p>
-      <a class="btn ghost" href="https://www.instagram.com/abbae.studio/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg> @abbae.studio</a>
+      <p>Os clipes, as captações ao vivo e o material que entregamos aos artistas estão no nosso Instagram.
+      E quem já contratou o abba estúdio deixou registrado o que achou nas avaliações do Google.</p>
+      <div class="stars">
+        <div class="s">★★★★★</div>
+        <div class="t">Avaliações de clientes do abba estúdio no Google</div>
+      </div>
+      <div class="acts2">
+        <a class="btn ghost" href="https://www.instagram.com/abbae.studio/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg> @abbae.studio</a>
+        <a class="btn ghost" href="https://share.google/eGTvyO216Yi6te2M4" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="m12 3 2.6 5.7 6.4.7-4.7 4.3 1.3 6.3L12 17l-5.6 3 1.3-6.3L3 9.4l6.4-.7z"/></svg> Avaliações no Google</a>
+      </div>
     </div>
   </div>
 </section>
@@ -564,6 +585,27 @@ footer span { font-size:9.5px; letter-spacing:.18em; text-transform:uppercase; c
     });
   }, { threshold: 0.14, rootMargin: '0px 0px -40px' });
   els.forEach(function (e) { io.observe(e); });
+})();
+
+/* =====================================================================
+   VÍDEOS DO YOUTUBE
+   Cole aqui os IDs, entre aspas e separados por vírgula. O ID é o que vem
+   depois de "v=" no endereço do YouTube. Lista vazia = área não aparece.
+   ===================================================================== */
+var VIDEOS = ['G5pGOLuWY1w'];
+
+(function () {
+  var caixa = document.getElementById('vids'), rot = document.getElementById('vidlb');
+  if (!caixa) return;
+  if (!VIDEOS.length) { caixa.style.display = 'none'; if (rot) rot.style.display = 'none'; return; }
+  if (VIDEOS.length === 1) caixa.style.gridTemplateColumns = '1fr';
+  VIDEOS.slice(0, 4).forEach(function (id) {
+    var d = document.createElement('div');
+    d.className = 'vid';
+    d.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + id +
+      '" title="Trabalho do abba estúdio" loading="lazy" allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
+    caixa.appendChild(d);
+  });
 })();
 
 // contagem regressiva + numeros que sobem
